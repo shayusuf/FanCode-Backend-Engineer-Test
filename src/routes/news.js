@@ -33,4 +33,15 @@ module.exports = function (app) {
             return next(err);
         }
     });
+
+    // Problem3: endpoint to get news on sportId
+    app.route('/news/sport').get(async (req, res, next) => {
+        try {
+            let params = req.query;
+            let result = await News.getNewsBySportId(params);
+            return res.json(result);
+        } catch (err) {
+            return next(err);
+        }
+    });
 }
