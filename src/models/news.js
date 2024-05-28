@@ -57,21 +57,21 @@ const addNewsByTourId = async params => {
 
 const getNewsByMatchId = async params => {
     const { id } = params;
-    const statement = 'select * from news where matchId = ?';
+    const statement = 'select id, title, description, sportId, tourId, matchId from news where matchId = ?';
     const parameters = [ id ];
     return await mysql.query(statement, parameters);
 }
 
 const getNewsByTourId = async params => {
     const { id } = params;
-    const statement = 'select * from news where tourId = ?';
+    const statement = 'select id, title, description, sportId, tourId, matchId from news where tourId = ?';
     const parameters = [ id ];
     return await mysql.query(statement, parameters);
 }
 
 const getNewsBySportId = async params => {
     const { id } = params;
-    const statement = 'select * from news where sportId = ?';
+    const statement = 'select id, title, description, sportId, tourId, matchId from news where sportId = ?';
     const parameters = [ id ];
     return await mysql.query(statement, parameters);
 }
