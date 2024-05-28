@@ -58,3 +58,43 @@ insert ignore into mydb.matches (name, tourId, format, startTime, endTime) value
 
 -- index `name` of `tours` table  (Problem 1)
 create index tourNameIdx on mydb.tours (name);
+
+-- create `news` table (Problem 3)
+/**
+    A news created for a match would necessary belong to its
+    corresponding tour and sport while a news created for a tour
+    does not imply that the news would belong to a particular 
+    match hence the matchId reference to match could stay null.
+
+    The idea to store reference ids of sport, tour and 
+    match table is to reduce the API latency while fetching 
+    news on either sport/tour/match id. If storing information was made highly
+    normalized having two more tables mapping news to tour and another 
+    table mapping news to match, while fetching, suppose on tour id
+    we would need to join news tour mapping table with news and also 
+    since news of match belong to a tour we would need to join news match
+    mapping table with match table and add the news result-set from the two queries. 
+
+    This would be inefficient for a system that needs faster Reads
+    than Writes. 
+
+    With this model structure the Write latency might increase since on
+    adding news for a match we need to fetch corresponding tour and sport
+    ids (since ids are indexed so less slower than non indexed), but 
+    Reads will be significantly faster. 
+    
+*/
+create table if not exists mydb.news
+(
+    id int auto_increment not null primary key,
+    title varchar(255) not null,
+    description text not null,
+    sportId int not null,
+    tourId int not null,
+    matchId int,
+    recUpdatedAt timestamp not null default current_timestamp on update current_timestamp,
+    createdAt timestamp not null default current_timestamp,
+    foreign key (sportId) references sports(id),
+    foreign key (tourId) references tours(id),
+    foreign key (matchId) references matches(id)
+);
