@@ -98,3 +98,9 @@ create table if not exists mydb.news
     foreign key (tourId) references tours(id),
     foreign key (matchId) references matches(id)
 );
+
+ -- seed news data
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Rohit Hitman', '50 runs in 12 balls', 1, 1, 1);
+insert ignore into mydb.news (title, description, sportId, tourId) values ('Virat Victorious', '100 th Century for Virat', 1, 3);
+insert ignore into mydb.news (title, description, sportId, tourId) values ('Hardik Pandya Disasspoints !', 'Hardik Pandya rushed to hospital due to minor finger injury. Audience frustrated.', 1, 1);
+insert ignore into mydb.news (title, description, sportId, tourId, matchId) values ('Sui Disqualified from WC Finals', 'Cristiano Ronaldo Fails himself and believers.', 2, 4, 11);
