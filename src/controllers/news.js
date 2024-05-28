@@ -14,6 +14,17 @@ const addNews = async params => {
     }
 }
 
+const getNewsByMatchId = async params => {
+    const { id } = params;
+    if ( id ) {
+        return await News.getNewsByMatchId(params);
+    }
+    else {
+        throw new Error('Missing required parameter: id');
+    }
+}
+
 module.exports = {
-    addNews: addNews
+    addNews: addNews,
+    getNewsByMatchId: getNewsByMatchId
 }
