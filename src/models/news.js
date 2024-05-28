@@ -62,8 +62,16 @@ const getNewsByMatchId = async params => {
     return await mysql.query(statement, parameters);
 }
 
+const getNewsByTourId = async params => {
+    const { id } = params;
+    const statement = 'select * from news where tourId = ?';
+    const parameters = [ id ];
+    return await mysql.query(statement, parameters);
+}
+
 module.exports = {
     addNewsByMatchId: addNewsByMatchId,
     addNewsByTourId: addNewsByTourId,
-    getNewsByMatchId: getNewsByMatchId
+    getNewsByMatchId: getNewsByMatchId,
+    getNewsByTourId: getNewsByTourId
 }

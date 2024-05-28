@@ -22,4 +22,15 @@ module.exports = function (app) {
             return next(err);
         }
     });
+
+    // Problem3: endpoint to get news on tourId 
+    app.route('/news/tour').get(async (req, res, next) => {
+        try {
+            let params = req.query;
+            let result = await News.getNewsByTourId(params);
+            return res.json(result);
+        } catch (err) {
+            return next(err);
+        }
+    });
 }

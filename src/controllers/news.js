@@ -24,7 +24,18 @@ const getNewsByMatchId = async params => {
     }
 }
 
+const getNewsByTourId = async params => {
+    const { id } = params;
+    if ( id ) {
+        return await News.getNewsByTourId(params);
+    }
+    else {
+        throw new Error('Missing required parameter - `id`');
+    }
+}
+
 module.exports = {
     addNews: addNews,
-    getNewsByMatchId: getNewsByMatchId
+    getNewsByMatchId: getNewsByMatchId,
+    getNewsByTourId: getNewsByTourId
 }
